@@ -112,6 +112,7 @@
 </script>
 
 <style scoped>
+@reference "tailwindcss";
 /* Звёздное небо */
 .stars {
   position: absolute;
