@@ -10,7 +10,7 @@
           class="w-10 h-10 md:w-14 md:h-14 object-cover rounded-full shadow-md border border-amber-400/40 group-hover:scale-105 transition-transform duration-300"
         >
         <span class="text-xl md:text-3xl font-serif text-amber-400 tracking-wider drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all">
-          Moreh Tedeh
+          Moreh ha_Tedeh
         </span>
       </router-link>
 

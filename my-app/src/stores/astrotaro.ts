@@ -10,124 +10,133 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
     year: '',
     time: '',
     country: 'Россия',
-    city: ''
+    city: '',
+    selectedCity: '',
+    customCity: ''
   });
 
   const result = ref<SpiritualResult | null>(null);
   const loading = ref(false);
+  
+  // Города
+  const cities = ref<string[]>([]);
+  const citiesLoading = ref(false);
+  const citiesError = ref<string | null>(null);
 
-  // Нумерология: Число Жизненного Пути
+  // ==================== ЗАГРУЗКА ГОРОДОВ ====================
+  const fetchRussianCities = async () => {
+    citiesLoading.value = true;
+    citiesError.value = null;
+
+    try {
+      const response = await fetch(
+        'https://raw.githubusercontent.com/pensnarik/russian-cities/master/russian-cities.json'
+      );
+
+      if (!response.ok) throw new Error('Failed to fetch');
+
+      const data = await response.json();
+
+      cities.value = data
+        .map((item: any) => item.name)
+        .filter(Boolean)
+        .sort();
+    } catch (err) {
+      console.error('Ошибка загрузки городов:', err);
+      citiesError.value = 'Не удалось загрузить список городов. Вводите вручную.';
+      
+      cities.value = [
+        "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
+        "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону",
+        "Уфа", "Красноярск", "Пермь", "Воронеж", "Волгоград", "Краснодар"
+      ];
+    } finally {
+      citiesLoading.value = false;
+    }
+  };
+
+  // ==================== РАСЧЁТЫ ====================
   const calculateLifePathNumber = (d: number, m: number, y: number): number => {
     let sum = d + m + y;
     while (sum > 9) {
-      sum = sum.toString().split('').reduce((acc, digit) => acc + Number(digit), 0);
+      sum = sum.toString().split('').reduce((acc, n) => acc + Number(n), 0);
     }
-    return sum === 0 ? 9 : sum; // 9 вместо 0
+    return sum === 0 ? 9 : sum;
   };
 
-  // Соответствие Аркану Таро
-  const getTarotArcana = (number: number): string => {
+  const getTarotArcana = (num: number): string => {
     const map: Record<number, string> = {
       1: 'Маг (I)', 2: 'Верховная Жрица (II)', 3: 'Императрица (III)',
       4: 'Император (IV)', 5: 'Иерофант (V)', 6: 'Влюблённые (VI)',
       7: 'Колесница (VII)', 8: 'Сила (VIII)', 9: 'Отшельник (IX)',
-      10: 'Колесо Фортуны (X)', 11: 'Справедливость (XI)', 
-      12: 'Повешенный (XII)', 13: 'Смерть (XIII)', 14: 'Умеренность (XIV)',
-      15: 'Дьявол (XV)', 16: 'Башня (XVI)', 17: 'Звезда (XVII)',
-      18: 'Луна (XVIII)', 19: 'Солнце (XIX)', 20: 'Суд (XX)',
-      21: 'Мир (XXI)', 22: 'Дурак (0)'
+      10: 'Колесо Фортуны (X)', 11: 'Справедливость (XI)', 12: 'Повешенный (XII)',
+      13: 'Смерть (XIII)', 14: 'Умеренность (XIV)', 15: 'Дьявол (XV)',
+      16: 'Башня (XVI)', 17: 'Звезда (XVII)', 18: 'Луна (XVIII)',
+      19: 'Солнце (XIX)', 20: 'Суд (XX)', 21: 'Мир (XXI)', 22: 'Дурак (0)'
     };
-    return map[number] || 'Дурак (0)';
+    return map[num] || 'Дурак (0)';
   };
 
-  // Универсальный расчёт трёх кругов Шани (приближённый)
-  const calculateShaniCycles = (year: number) => {
-    const currentYear = new Date().getFullYear();
-    const age = currentYear - year;
-
-    const firstStart = year + 5;
-    const firstEnd = year + 13;
-
-    const secondStart = year + 30 + 5;   // примерно 35–37 лет
-    const secondEnd = year + 30 + 13;    // примерно 43–45 лет
-
-    const thirdStart = year + 60 + 5;    // примерно 65–67 лет
-    const thirdEnd = year + 60 + 13;     // примерно 73–75 лет
-
-    return [
-      {
-        cycle: 1,
-        period: `${firstStart}–${firstEnd}`,
-        age: "Детство / Формирование",
-        stage: "Calcination (Обжиг)",
-        arcana: "Смерть (XIII)",
-        archetype: "Ранний Сенекс"
-      },
-      {
-        cycle: 2,
-        period: `${secondStart}–${secondEnd}`,
-        age: "Зрелость (Главный кризис)",
-        stage: "Nigredo (Чёрная работа)",
-        arcana: "Башня (XVI) → Умеренность (XIV)",
-        archetype: "Тень + Сенекс"
-      },
-      {
-        cycle: 3,
-        period: `${thirdStart}–${thirdEnd}`,
-        age: "Поздняя зрелость",
-        stage: "Rubedo (Просветление)",
-        arcana: "Солнце (XIX) / Мир (XXI)",
-        archetype: "Мудрец / Самость"
-      }
-    ];
-  };
+  const calculateShaniCycles = (birthYear: number) => [
+    { cycle: 1, period: `${birthYear + 5}–${birthYear + 13}`, age: "Детство и Формирование", stage: "Calcination — Обжиг", arcana: "Смерть (XIII) / Повешенный (XII)", archetype: "Ранний Сенекс" },
+    { cycle: 2, period: `${birthYear + 35}–${birthYear + 45}`, age: "Зрелость — Главный Кризис", stage: "Nigredo — Чёрная работа", arcana: "Башня (XVI) → Умеренность (XIV)", archetype: "Тень + Сенекс" },
+    { cycle: 3, period: `${birthYear + 65}–${birthYear + 75}`, age: "Мудрость и Завершение", stage: "Rubedo — Просветление", arcana: "Солнце (XIX) / Мир (XXI)", archetype: "Мудрец / Самость" }
+  ];
 
   const calculate = async (data: BirthForm) => {
-    loading.value = true;
-
-    const day = parseInt(data.day);
-    const month = parseInt(data.month);
-    const year = parseInt(data.year);
-
-    const lifePath = calculateLifePathNumber(day, month, year);
-    const mainArcana = getTarotArcana(lifePath);
-    const cycles = calculateShaniCycles(year);
-
-    const currentYear = new Date().getFullYear();
-    const age = currentYear - year;
-
-    let currentCycleText = 'Второй круг Сатурна';
-    let currentStageText = 'Трансформация (Nigredo)';
-
-    if (age < 20) {
-      currentCycleText = 'Первый круг Сатурна';
-      currentStageText = 'Формирование';
-    } else if (age > 55) {
-      currentCycleText = 'Третий круг Сатурна (или приближение)';
-      currentStageText = 'Мудрость и завершение';
+    if (!data) {
+      console.error("Данные для расчёта не переданы");
+      return;
     }
 
-    result.value = {
-      name: data.name.trim() || 'Путник',
-      birthDate: `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`,
-      moonSign: 'Определяется по Луне (Janma Rashi)',
-      lifePathNumber: lifePath,
-      mainArcana,
-      currentShaniCycle: currentCycleText,
-      currentStage: currentStageText,
-      alchemicalStage: age > 35 && age < 50 ? 'Nigredo → Albedo' : 'Nigredo',
-      jungArchetype: 'Сенекс (Мудрый Старец) / Интеграция Тени',
-      message: `Ваша душа проходит через важные кармические уроки Сатурна. Сейчас вы ${currentStageText.toLowerCase()}.`,
-      cycles
-    };
+    loading.value = true;
 
-    loading.value = false;
+    try {
+      const day = parseInt(data.day || '0');
+      const month = parseInt(data.month || '0');
+      const year = parseInt(data.year || '0');
+      const age = new Date().getFullYear() - year;
+
+      const lifePath = calculateLifePathNumber(day, month, year);
+
+      let currentStage = 'Трансформация';
+      if (age < 18) currentStage = 'Первая трансформация (Формирование)';
+      else if (age < 35) currentStage = 'Переход во взрослую жизнь';
+      else if (age < 52) currentStage = 'Второй круг Шани — Главный кризис и трансформация';
+      else if (age < 65) currentStage = 'Интеграция опыта';
+      else currentStage = 'Третий круг Шани — Мудрость и завершение';
+
+      result.value = {
+        name: data.name?.trim() || 'Путник',
+        birthDate: `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`,
+        moonSign: 'Определяется по Луне',
+        lifePathNumber: lifePath,
+        mainArcana: getTarotArcana(lifePath),
+        currentShaniCycle: 'Активный цикл',
+        currentStage,
+        alchemicalStage: age > 30 && age < 52 ? 'Nigredo → Albedo' : age >= 65 ? 'Rubedo' : 'Nigredo',
+        jungArchetype: age > 35 ? 'Сенекс + Интеграция Тени' : 'Формирование характера',
+        message: `Вы сейчас находитесь на этапе: ${currentStage}`,
+        cycles: calculateShaniCycles(year)
+      };
+    } catch (err) {
+      console.error("Ошибка при расчёте:", err);
+    } finally {
+      loading.value = false;
+    }
   };
+
+  // Загружаем города при инициализации
+  fetchRussianCities();
 
   return {
     form,
     result,
     loading,
-    calculate
+    cities,
+    citiesLoading,
+    citiesError,
+    calculate,
+    fetchRussianCities
   };
 });

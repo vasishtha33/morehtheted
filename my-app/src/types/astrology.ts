@@ -6,16 +6,8 @@ export interface BirthForm {
   time: string;
   country: string;
   city: string;
-}
-
-export interface FormErrors {
-  name: string;
-  day: string;
-  month: string;
-  year: string;
-  time: string;
-  country: string;
-  city: string;
+  selectedCity?: string;   // для выпадающего списка
+  customCity?: string;     // если ввели вручную
 }
 
 export interface SpiritualResult {
