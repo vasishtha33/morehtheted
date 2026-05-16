@@ -4,24 +4,26 @@
       
       <!-- Логотип + Название -->
       <router-link to="/" class="flex items-center gap-5 md:gap-6 group">
-        <!-- Картинка-логотип: увеличенная в полтора раза -->
         <img 
           src="@/assets/images/star.jpg" 
           alt="Звезда" 
           class="w-10 h-10 md:w-14 md:h-14 object-cover rounded-full shadow-md border border-amber-400/40 group-hover:scale-105 transition-transform duration-300"
         >
-        <!-- Текст -->
         <span class="text-xl md:text-3xl font-serif text-amber-400 tracking-wider drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all">
           Moreh Tedeh
         </span>
       </router-link>
 
-      <!-- Десктопное меню (скрыто на мобильных) -->
+      <!-- Десктопное меню -->
       <nav class="hidden lg:flex space-x-6 xl:space-x-8 text-sm xl:text-base font-medium">
         <router-link to="/" class="nav-link">Обо мне</router-link>
         <router-link to="/yoga-vasishtha" class="nav-link">Йога-Васиштха</router-link>
         <router-link to="/tarot" class="nav-link">Гадание на таро</router-link>
         <router-link to="/runes" class="nav-link">Гадание на рунах</router-link>
+        
+        <!-- Новый пункт -->
+        <router-link to="/astrotaro" class="nav-link">Астротаро</router-link>
+
         <router-link to="/ritual-cleaning" class="nav-link">Ритуальные Чистки</router-link>
         <router-link to="/financial-horoscope" class="nav-link">Финансовый Гороскоп</router-link>
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
@@ -47,6 +49,10 @@
         <router-link @click="closeMenu" to="/yoga-vasishtha" class="nav-link-mobile">Йога-Васиштха</router-link>
         <router-link @click="closeMenu" to="/tarot" class="nav-link-mobile">Гадание на таро</router-link>
         <router-link @click="closeMenu" to="/runes" class="nav-link-mobile">Гадание на рунах</router-link>
+        
+        <!-- Новый пункт в мобильном меню -->
+        <router-link @click="closeMenu" to="/astrotaro" class="nav-link-mobile">Астротаро</router-link>
+
         <router-link @click="closeMenu" to="/ritual-cleaning" class="nav-link-mobile">Ритуальные Чистки</router-link>
         <router-link @click="closeMenu" to="/financial-horoscope" class="nav-link-mobile">Финансовый Гороскоп</router-link>
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
@@ -74,7 +80,9 @@ function closeMenu() {
 <style scoped>
 @reference "tailwindcss";
 .nav-link {
-  @apply relative text-gray-200 hover:text-amber-400 transition-colors duration-300 after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full;
+  @apply relative text-gray-200 hover:text-amber-400 transition-colors duration-300 
+         after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
+         after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full;
 }
 
 .nav-link-mobile {

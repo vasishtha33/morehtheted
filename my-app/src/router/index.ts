@@ -49,7 +49,17 @@ const router = createRouter({
       path: '/contacts',
       name: 'contacts',
       component: () => import('@/views/Contacts.vue')
-    }
+    },
+    {
+      path: '/astrotaro',
+      name: 'AstroTaro',
+      component: () => import('@/views/AstroTaro.vue')   // или About.vue стиль
+    },
+     {
+      path: '/report',
+      name: 'SpiritualReport',
+      component: () => import('@/components/SpiritualReport.vue')   // или About.vue стиль
+    },
   ]
 })
 
