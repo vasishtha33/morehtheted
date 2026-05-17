@@ -6,8 +6,8 @@ export interface BirthForm {
   time: string;
   country: string;
   city: string;
-  selectedCity?: string;   // для выпадающего списка
-  customCity?: string;     // если ввели вручную
+  selectedCity?: string;
+  customCity?: string;
 }
 
 export interface SpiritualResult {
@@ -21,12 +21,9 @@ export interface SpiritualResult {
   alchemicalStage: string;
   jungArchetype: string;
   message: string;
-  cycles: Array<{
-    cycle: number;
-    period: string;
-    age: string;
-    stage: string;
-    arcana: string;
-    archetype: string;
-  }>;
+  cycles: Array<{ /* ... */ }>;
+  // === НОВЫЕ ПОЛЯ ===
+  zodiacSign: string;
+  fixedStar: string;
+  fixedStarPurpose: string;
 }

@@ -17,42 +17,41 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
 
   const result = ref<SpiritualResult | null>(null);
   const loading = ref(false);
-  
+
   // Города
   const cities = ref<string[]>([]);
   const citiesLoading = ref(false);
   const citiesError = ref<string | null>(null);
 
-  // ==================== ЗАГРУЗКА ГОРОДОВ ====================
-  const fetchRussianCities = async () => {
-    citiesLoading.value = true;
-    citiesError.value = null;
+  // ==================== Главные Неподвижные Звёзды (по вашей таблице) ====================
+  const fixedStars: Record<string, { name: string; purpose: string }> = {
+    'Овен':      { name: 'Alderamin или Algenib', purpose: 'Инициация, лидерство, прорыв' },
+    'Телец':     { name: 'Aldebaran (Красный Глаз Быка)', purpose: 'Королевская звезда Востока, сила, честь, богатство' },
+    'Близнецы':  { name: 'Rigel или Capella', purpose: 'Знание, обучение, свет разума' },
+    'Рак':       { name: 'Sirius (Сириус)', purpose: 'Духовный учитель, высший свет, «Солнце Солнц»' },
+    'Лев':       { name: 'Regulus (Сердце Льва)', purpose: 'Королевская звезда Севера, власть, благородство, лидерство' },
+    'Дева':      { name: 'Spica (Колос)', purpose: 'Благодать, изобилие, чистота, целительство' },
+    'Весы':      { name: 'Arcturus', purpose: 'Страж, защита, духовное руководство' },
+    'Скорпион':  { name: 'Antares (Сердце Скорпиона)', purpose: 'Королевская звезда Запада, трансформация, война/мир, испытание' },
+    'Стрелец':   { name: 'Antares или Vega', purpose: 'Поиск истины, высшее знание' },
+    'Козерог':   { name: 'Vega или Deneb', purpose: 'Падение/восхождение, мастерство' },
+    'Водолей':   { name: 'Altair или Fomalhaut', purpose: 'Королевская звезда Юга, гуманизм, видение будущего' },
+    'Рыбы':      { name: 'Fomalhaut', purpose: 'Королевская звезда, духовность, жертва, спасение' }
+  };
 
-    try {
-      const response = await fetch(
-        'https://raw.githubusercontent.com/pensnarik/russian-cities/master/russian-cities.json'
-      );
-
-      if (!response.ok) throw new Error('Failed to fetch');
-
-      const data = await response.json();
-
-      cities.value = data
-        .map((item: any) => item.name)
-        .filter(Boolean)
-        .sort();
-    } catch (err) {
-      console.error('Ошибка загрузки городов:', err);
-      citiesError.value = 'Не удалось загрузить список городов. Вводите вручную.';
-      
-      cities.value = [
-        "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
-        "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону",
-        "Уфа", "Красноярск", "Пермь", "Воронеж", "Волгоград", "Краснодар"
-      ];
-    } finally {
-      citiesLoading.value = false;
-    }
+  const getZodiacSign = (month: number, day: number): string => {
+    if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return 'Овен';
+    if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return 'Телец';
+    if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return 'Близнецы';
+    if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return 'Рак';
+    if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return 'Лев';
+    if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return 'Дева';
+    if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return 'Весы';
+    if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return 'Скорпион';
+    if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return 'Стрелец';
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return 'Козерог';
+    if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return 'Водолей';
+    return 'Рыбы';
   };
 
   // ==================== РАСЧЁТЫ ====================
@@ -83,11 +82,9 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
     { cycle: 3, period: `${birthYear + 65}–${birthYear + 75}`, age: "Мудрость и Завершение", stage: "Rubedo — Просветление", arcana: "Солнце (XIX) / Мир (XXI)", archetype: "Мудрец / Самость" }
   ];
 
+  // ==================== ОСНОВНОЙ РАСЧЁТ ====================
   const calculate = async (data: BirthForm) => {
-    if (!data) {
-      console.error("Данные для расчёта не переданы");
-      return;
-    }
+    if (!data) return;
 
     loading.value = true;
 
@@ -98,6 +95,8 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
       const age = new Date().getFullYear() - year;
 
       const lifePath = calculateLifePathNumber(day, month, year);
+      const zodiacSign = getZodiacSign(month, day);
+      const fixedStarInfo = fixedStars[zodiacSign];
 
       let currentStage = 'Трансформация';
       if (age < 18) currentStage = 'Первая трансформация (Формирование)';
@@ -117,7 +116,10 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
         alchemicalStage: age > 30 && age < 52 ? 'Nigredo → Albedo' : age >= 65 ? 'Rubedo' : 'Nigredo',
         jungArchetype: age > 35 ? 'Сенекс + Интеграция Тени' : 'Формирование характера',
         message: `Вы сейчас находитесь на этапе: ${currentStage}`,
-        cycles: calculateShaniCycles(year)
+        cycles: calculateShaniCycles(year),
+        zodiacSign,
+        fixedStar: fixedStarInfo.name,
+        fixedStarPurpose: fixedStarInfo.purpose
       };
     } catch (err) {
       console.error("Ошибка при расчёте:", err);
@@ -126,7 +128,33 @@ export const useAstroTaroStore = defineStore('astrotaro', () => {
     }
   };
 
-  // Загружаем города при инициализации
+  // ==================== ЗАГРУЗКА ГОРОДОВ ====================
+  const fetchRussianCities = async () => {
+    citiesLoading.value = true;
+    citiesError.value = null;
+    try {
+      const response = await fetch(
+        'https://raw.githubusercontent.com/pensnarik/russian-cities/master/russian-cities.json'
+      );
+      if (!response.ok) throw new Error('Failed to fetch');
+      const data = await response.json();
+      cities.value = data
+        .map((item: any) => item.name)
+        .filter(Boolean)
+        .sort();
+    } catch (err) {
+      console.error('Ошибка загрузки городов:', err);
+      citiesError.value = 'Не удалось загрузить список городов. Вводите вручную.';
+      cities.value = [
+        "Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань",
+        "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону"
+      ];
+    } finally {
+      citiesLoading.value = false;
+    }
+  };
+
+  // Загружаем города при создании стора
   fetchRussianCities();
 
   return {
