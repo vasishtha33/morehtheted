@@ -26,9 +26,14 @@
               
               <div>
                 <label class="block text-amber-400/80 mb-1.5">Имя <span class="text-red-400">*</span></label>
-                <input v-model="form.name" type="text" @input="validateName"
+                <input 
+                  v-model="form.name" 
+                  type="text" 
+                  @input="validateName"
+                  placeholder="Введите имя на русском языке"
                   class="w-full bg-black/70 border rounded-2xl px-6 py-4 text-white focus:border-amber-400 outline-none transition-colors"
-                  :class="{ 'border-red-500': errors.name }">
+                  :class="{ 'border-red-500': errors.name }"
+                >
                 <p v-if="errors.name" class="text-red-400 text-sm mt-1">{{ errors.name }}</p>
               </div>
 
@@ -75,7 +80,7 @@
               <!-- Города -->
               <div class="space-y-5">
                 <div>
-                  <label class="block text-amber-400/80 mb-1.5">Город из списка <span class="text-amber-400">(рекомендуется)</span></label>
+                  <label class="block text-amber-400/80 mb-1.5">Город из списка</label>
                   <select v-model="form.selectedCity" @change="onCitySelect"
                     class="w-full bg-black/70 border rounded-2xl px-6 py-4 text-white focus:border-amber-400 outline-none"
                     :disabled="citiesLoading">
@@ -87,7 +92,6 @@
                   <p v-if="citiesError" class="text-red-400 text-sm mt-1">{{ citiesError }}</p>
                   <p v-else-if="citiesLoading" class="text-amber-400/70 text-sm mt-1">Загрузка городов...</p>
                 </div>
-
 
               </div>
 
@@ -147,7 +151,20 @@ const errors = ref({
 
 // ====================== ВАЛИДАЦИЯ ======================
 const validateName = () => {
-  errors.value.name = form.name.trim().length < 2 ? 'Имя должно содержать минимум 2 символа' : ''
+  const name = (form.name || '').trim()
+  
+  if (name.length < 2) {
+    errors.value.name = 'Имя должно содержать минимум 2 символа'
+    return
+  }
+
+  // Проверка только на русские буквы, пробелы и дефис
+  const russianRegex = /^[а-яА-ЯёЁ\s-]+$/;
+  if (!russianRegex.test(name)) {
+    errors.value.name = 'Имя должно быть написано только на русском языке'
+  } else {
+    errors.value.name = ''
+  }
 }
 
 const validateDay = () => {
@@ -170,7 +187,7 @@ const validateTime = () => {
 }
 
 const validateCity = () => {
-  const hasCity = !!(form.selectedCity || form.customCity?.trim())
+  const hasCity = !!(form.selectedCity || (form.customCity || '').trim())
   errors.value.city = hasCity ? '' : 'Выберите город из списка или введите вручную'
 }
 
@@ -195,9 +212,8 @@ const handleCalculate = () => {
   validateCity()
 
   if (isFormValid.value) {
-    const finalCity = form.selectedCity || form.customCity?.trim() || ''
+    const finalCity = form.selectedCity || (form.customCity || '').trim() || ''
     
-    // Передаём копию объекта
     store.calculate({
       ...form,
       city: finalCity
