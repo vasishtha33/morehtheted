@@ -60,6 +60,11 @@ const router = createRouter({
       name: 'SpiritualReport',
       component: () => import('@/components/SpiritualReport.vue')   // или About.vue стиль
     },
+    {
+  path: '/contacts',
+  name: 'contacts',
+  component: () => import('@/views/ContactsView.vue')
+    }
   ]
 })
 
