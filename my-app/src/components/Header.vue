@@ -10,24 +10,27 @@
           class="w-10 h-10 md:w-14 md:h-14 object-cover rounded-full shadow-md border border-amber-400/40 group-hover:scale-105 transition-transform duration-300"
         >
         <span class="text-xl md:text-3xl font-serif text-amber-400 tracking-wider drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all">
-          Moreh ha_Tedeh
+          Moreh ha_Tzedek
         </span>
       </router-link>
 
       <!-- Десктопное меню -->
       <nav class="hidden lg:flex space-x-6 xl:space-x-8 text-sm xl:text-base font-medium">
         <router-link to="/" class="nav-link">Обо мне</router-link>
-        <router-link to="/yoga-vasishtha" class="nav-link">Йога-Васиштха</router-link>
-        <router-link to="/tarot" class="nav-link">Гадание на таро</router-link>
-        <router-link to="/runes" class="nav-link">Гадание на рунах</router-link>
         
-        <!-- Новый пункт -->
+        <span class="nav-link-disabled">Йога-Васиштха</span>
+        <span class="nav-link-disabled">Гадание на таро</span>
+        <span class="nav-link-disabled">Гадание на рунах</span>
+        
         <router-link to="/astrotaro" class="nav-link">Астротаро</router-link>
-
-        <router-link to="/ritual-cleaning" class="nav-link">Ритуальные Чистки</router-link>
-        <router-link to="/financial-horoscope" class="nav-link">Финансовый Гороскоп</router-link>
+        
+        <span class="nav-link-disabled">Ритуальные Чистки</span>
+        <span class="nav-link-disabled">Финансовый Гороскоп</span>
+        
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
-        <router-link to="/additional-materials" class="nav-link">Доп. материалы</router-link>
+        
+        <span class="nav-link-disabled">Доп. материалы</span>
+        
         <router-link to="/contacts" class="nav-link">Мои контакты</router-link>
       </nav>
 
@@ -46,17 +49,20 @@
     <div v-show="isMenuOpen" class="lg:hidden bg-black/90 backdrop-blur-md border-t border-amber-400/20 py-4 px-4 shadow-2xl">
       <nav class="flex flex-col space-y-3 text-base">
         <router-link @click="closeMenu" to="/" class="nav-link-mobile">Обо мне</router-link>
-        <router-link @click="closeMenu" to="/yoga-vasishtha" class="nav-link-mobile">Йога-Васиштха</router-link>
-        <router-link @click="closeMenu" to="/tarot" class="nav-link-mobile">Гадание на таро</router-link>
-        <router-link @click="closeMenu" to="/runes" class="nav-link-mobile">Гадание на рунах</router-link>
         
-        <!-- Новый пункт в мобильном меню -->
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Йога-Васиштха</span>
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Гадание на таро</span>
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Гадание на рунах</span>
+        
         <router-link @click="closeMenu" to="/astrotaro" class="nav-link-mobile">Астротаро</router-link>
-
-        <router-link @click="closeMenu" to="/ritual-cleaning" class="nav-link-mobile">Ритуальные Чистки</router-link>
-        <router-link @click="closeMenu" to="/financial-horoscope" class="nav-link-mobile">Финансовый Гороскоп</router-link>
+        
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Ритуальные Чистки</span>
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Финансовый Гороскоп</span>
+        
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
-        <router-link @click="closeMenu" to="/additional-materials" class="nav-link-mobile">Дополнительные материалы</router-link>
+        
+        <span @click="closeMenu" class="nav-link-mobile-disabled">Доп. материалы</span>
+        
         <router-link @click="closeMenu" to="/contacts" class="nav-link-mobile">Мои контакты</router-link>
       </nav>
     </div>
@@ -79,16 +85,27 @@ function closeMenu() {
 
 <style scoped>
 @reference "tailwindcss";
+
 .nav-link {
   @apply relative text-gray-200 hover:text-amber-400 transition-colors duration-300 
          after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 
-         after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full;
+         after:bg-amber-400 after:transition-all after:duration-300 hover:after:w-full cursor-pointer;
+}
+
+.nav-link-disabled {
+  @apply text-gray-500 cursor-not-allowed select-none relative;
+  /* лёгкое отличие от активных */
 }
 
 .nav-link-mobile {
-  @apply block py-2 px-3 text-gray-200 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all duration-200;
+  @apply block py-2 px-3 text-gray-200 hover:text-amber-400 hover:bg-white/5 rounded-lg transition-all duration-200 cursor-pointer;
 }
 
+.nav-link-mobile-disabled {
+  @apply block py-2 px-3 text-gray-500 cursor-not-allowed select-none;
+}
+
+/* Активная ссылка */
 .router-link-active {
   @apply text-amber-400 after:w-full;
 }
