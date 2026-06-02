@@ -69,7 +69,56 @@ const router = createRouter({
   path: '/library',
   name: 'library',
   component: () => import('@/views/LibraryView.vue')
-}
+    },
+    {
+  path: '/articles',
+  name: 'articles',
+  component: () => import('@/views/ArticlesView.vue')
+    },
+
+// ==================== ОТДЕЛЬНЫЕ СТАТЬИ ====================
+
+{
+  path: '/articles/samaya-opasnaya-bolezn-v-mire',
+  name: 'samaya-opasnaya-bolezn-v-mire',
+  component: () => import('@/views/articles/SamayaOpasnayaBoleznView.vue')
+},
+
+{
+  path: '/articles/odna-iz-glavnyh-problem-sovremennogo-obschestva',
+  name: 'odna-iz-glavnyh-problem-sovremennogo-obschestva',
+  component: () => import('@/views/articles/OdnaIzGlavnyhProblemView.vue')
+},
+
+{
+  path: '/articles/kak-vliyaet-progress-na-zdorove-cheloveka',
+  name: 'kak-vliyaet-progress-na-zdorove-cheloveka',
+  component: () => import('@/views/articles/KakVliyaetProgressNaZdoroveView.vue')
+},
+
+{
+  path: '/articles/ot-chego-zavisit-vash-lichnostnyy-rost',
+  name: 'ot-chego-zavisit-vash-lichnostnyy-rost',
+  component: () => import('@/views/articles/OtChegoZavisitLichnostnyyRostView.vue')
+},
+
+{
+  path: '/articles/byt-horoshim-horosho-ili-ploho',
+  name: 'byt-horoshim-horosho-ili-ploho',
+  component: () => import('@/views/articles/BytHoroshimHoroshoIliPlohoView.vue')
+},
+
+{
+  path: '/articles/moya-duhovnaya-realizaciya',
+  name: 'moya-duhovnaya-realizaciya',
+  component: () => import('@/views/articles/MoyaDuhovnayaRealizaciyaView.vue')
+},
+
+{
+  path: '/articles/v-chem-vasha-unikalnost',
+  name: 'v-chem-vasha-unikalnost',
+  component: () => import('@/views/articles/VChemVashaUnikalnostView.vue')
+} 
   ]
 })
 

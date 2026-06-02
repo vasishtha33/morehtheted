@@ -29,6 +29,9 @@
         
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
         
+        <!-- Новый раздел -->
+        <router-link to="/articles" class="nav-link">Статьи</router-link>
+        
         <span class="nav-link-disabled">Доп. материалы</span>
         
         <router-link to="/contacts" class="nav-link">Мои контакты</router-link>
@@ -60,6 +63,9 @@
         <span @click="closeMenu" class="nav-link-mobile-disabled">Финансовый Гороскоп</span>
         
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
+        
+        <!-- Новый раздел -->
+        <router-link @click="closeMenu" to="/articles" class="nav-link-mobile">Статьи</router-link>
         
         <span @click="closeMenu" class="nav-link-mobile-disabled">Доп. материалы</span>
         
@@ -94,7 +100,6 @@ function closeMenu() {
 
 .nav-link-disabled {
   @apply text-gray-500 cursor-not-allowed select-none relative;
-  /* лёгкое отличие от активных */
 }
 
 .nav-link-mobile {
