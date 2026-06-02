@@ -202,6 +202,33 @@
           </div>
         </router-link>
 
+        <!-- Новая статья -->
+        <router-link to="/articles/inogda-zhizn-eto-proklyatie-inogda-blagoslovenie" class="article-card group">
+          <div class="relative h-full bg-black/40 backdrop-blur-md border border-amber-400/20 rounded-3xl p-8 hover:border-amber-400/50 transition-all duration-500 overflow-hidden">
+            <div class="absolute top-6 right-6 text-amber-400/30 text-5xl">✦</div>
+            
+            <h2 class="text-2xl font-serif text-amber-100 group-hover:text-amber-300 transition-colors leading-tight mb-6">
+              Иногда жизнь — это проклятие, иногда — благословение
+            </h2>
+            
+            <div class="flex items-center gap-3 text-sm text-amber-400/70 mb-6">
+              <span class="font-medium">Moreh ha_Tzedek</span>
+              <span class="w-1 h-1 bg-amber-400/50 rounded-full"></span>
+              <span>Философия</span>
+            </div>
+            
+            <p class="text-gray-300 line-clamp-4 leading-relaxed">
+              Одна и та же ситуация может стать для одного человека тяжёлым проклятием, 
+              а для другого — величайшим благословением. Всё зависит от угла зрения...
+            </p>
+            
+            <div class="mt-8 pt-6 border-t border-amber-400/10 text-xs tracking-widest text-amber-400/60 flex justify-between items-center">
+              <span>Читать →</span>
+              <span>10 мин</span>
+            </div>
+          </div>
+        </router-link>
+
       </div>
     </div>
   </div>

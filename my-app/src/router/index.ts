@@ -118,7 +118,12 @@ const router = createRouter({
   path: '/articles/v-chem-vasha-unikalnost',
   name: 'v-chem-vasha-unikalnost',
   component: () => import('@/views/articles/VChemVashaUnikalnostView.vue')
-} 
+},
+{
+  path: '/articles/inogda-zhizn-eto-proklyatie-inogda-blagoslovenie',
+  name: 'inogda-zhizn-eto-proklyatie-inogda-blagoslovenie',
+  component: () => import('@/views/articles/InogdaZhiznEtoProklyatieInogdaBlagoslovenieView.vue')
+}
   ]
 })
 
