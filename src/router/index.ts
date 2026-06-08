@@ -78,7 +78,7 @@ const router = createRouter({
         {
   path: '/services',
   name: 'services',
-  component: () => import('@/views/servises.vue')
+  component: () => import('@/views/Servises.vue')
     },
 
 // ==================== ОТДЕЛЬНЫЕ СТАТЬИ ====================
