@@ -17,7 +17,7 @@
       <!-- Десктопное меню -->
       <nav class="hidden lg:flex space-x-6 xl:space-x-8 text-sm xl:text-base font-medium">
         <router-link to="/" class="nav-link">Обо мне</router-link>
-        
+        <router-link to="/services" class="nav-link">Услуги</router-link>
         <span class="nav-link-disabled">Йога-Васиштха</span>
         <span class="nav-link-disabled">Гадание на таро</span>
         <span class="nav-link-disabled">Гадание на рунах</span>

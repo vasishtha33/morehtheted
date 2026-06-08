@@ -75,6 +75,11 @@ const router = createRouter({
   name: 'articles',
   component: () => import('@/views/ArticlesView.vue')
     },
+        {
+  path: '/services',
+  name: 'services',
+  component: () => import('@/views/servises.vue')
+    },
 
 // ==================== ОТДЕЛЬНЫЕ СТАТЬИ ====================
 
