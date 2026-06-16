@@ -123,7 +123,32 @@ const router = createRouter({
   path: '/articles/v-chem-vasha-unikalnost',
   name: 'v-chem-vasha-unikalnost',
   component: () => import('@/views/articles/VChemVashaUnikalnostView.vue')
-} 
+},
+{
+  path: '/articles/travma-detstva',
+  name: 'TravmaDetstva',
+  component: () => import('@/views/articles/TravmaDetstvaView.vue')
+} ,
+{
+    path: '/articles/kto-ya',
+    name: 'KtoYa',
+    component: () => import('@/views/articles/KtoYaView.vue')
+  },
+  {
+    path: '/articles/lyubovnye-otnosheniya',
+    name: 'LyubovnyeOtnosheniya',
+    component: () => import('@/views/articles/LyubovnyeOtnosheniyaView.vue')
+  },
+  {
+    path: '/articles/styd-i-vina',
+    name: 'StydIVina',
+    component: () => import('@/views/articles/StydIVinaView.vue')
+  },
+  {
+    path: '/articles/ne-igrayu-s-chuvstvami',
+    name: 'NeIgrayuSChuvstvami',
+    component: () => import('@/views/articles/NeIgrayuSChuvstvamiView.vue')
+  },
   ]
 })
 

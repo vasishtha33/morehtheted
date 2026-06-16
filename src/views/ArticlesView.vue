@@ -51,7 +51,7 @@
 
       </div>
 
-      <!-- Пагинация (будет 2 страницы) -->
+      <!-- Пагинация -->
       <div v-if="totalPages > 1" class="flex justify-center items-center gap-4 mt-16">
         <button 
           @click="prevPage" 
@@ -94,7 +94,6 @@
 import { ref, computed } from 'vue'
 
 const articles = ref([
-  // 8-я статья (новая)
   {
     slug: 'travma-detstva',
     title: 'Травма детства',
@@ -102,7 +101,6 @@ const articles = ref([
     category: 'Самопознание',
     readTime: '11 мин'
   },
-  // Старые статьи
   {
     slug: 'samaya-opasnaya-bolezn-v-mire',
     title: 'Самая опасная болезнь в мире',
@@ -133,10 +131,10 @@ const articles = ref([
   },
   {
     slug: 'byt-horoshim-horosho-ili-ploho',
-    title: 'Быть «хорошим» хорошо или плохо?',
-    excerpt: 'Почему стремление быть «хорошим» для всех может быть опасной ловушкой...',
-    category: 'Этика',
-    readTime: '7 мин'
+    title: 'Быть хорошим человеком',
+    excerpt: 'Вы очень хороший человек. Вы многое делаете в ущерб себе. Боитесь сказать «нет»...',
+    category: 'Самопознание',
+    readTime: '9 мин'
   },
   {
     slug: 'moya-duhovnaya-realizaciya',
@@ -150,6 +148,34 @@ const articles = ref([
     title: 'В чём ваша уникальность?',
     excerpt: 'Каждый человек несёт в себе уникальный божественный отпечаток...',
     category: 'Самопознание',
+    readTime: '8 мин'
+  },
+  {
+    slug: 'kto-ya',
+    title: 'Кто я?',
+    excerpt: 'Человек без имени. Вездесущий воздух, вдыхающий аромат прекрасных цветов...',
+    category: 'Поэзия',
+    readTime: '6 мин'
+  },
+  {
+    slug: 'lyubovnye-otnosheniya',
+    title: 'Когда любовные отношения отпадают',
+    excerpt: 'Наконец-то я пришёл к такому состоянию, что любовные отношения могут отпасть...',
+    category: 'Отношения',
+    readTime: '9 мин'
+  },
+  {
+    slug: 'styd-i-vina',
+    title: 'Стыд и вина',
+    excerpt: 'Вы очень хороший человек. Вы многое делаете в ущерб себе. Боитесь сказать «нет»...',
+    category: 'Самопознание',
+    readTime: '10 мин'
+  },
+  {
+    slug: 'ne-igrayu-s-chuvstvami',
+    title: 'Я не играю на чувствах',
+    excerpt: 'Многие люди думают, что я с ними играю. Что я могу на это сказать?...',
+    category: 'Отношения',
     readTime: '8 мин'
   }
 ])
