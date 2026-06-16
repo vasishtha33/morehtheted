@@ -15,7 +15,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
-  
-  // === НАСТРОЙКА ДЛЯ GITHUB PAGES ===
-  base: '/morehtheted/',   // ← Очень важно! Название твоего репозитория
+
+  // Настройка для обычного хостинга (корень домена)
+  base: '/',   
 })

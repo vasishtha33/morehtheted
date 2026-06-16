@@ -27,7 +27,7 @@
             <div class="absolute -inset-2 bg-gradient-to-r from-amber-400/30 to-purple-600/30 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
             <div class="relative">
               <img 
-                src="@/assets/images/me.jpg" 
+                src="@/assets/images/33.jpg" 
                 alt="Учитель мудрости" 
                 class="relative w-80 h-80 md:w-96 md:h-96 object-cover rounded-3xl shadow-2xl border border-amber-400/40 z-10"
               >
