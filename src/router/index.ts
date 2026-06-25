@@ -17,6 +17,7 @@ const router = createRouter({
     { path: '/astrotaro', component: () => import('@/views/AstroTaro.vue') },
     { path: '/report', component: () => import('@/components/SpiritualReport.vue') },
     { path: '/services', component: () => import('@/views/Servises.vue') },
+    { path: '/donates', component: () => import('@/views/DonatesView.vue') },
 
     // Список статей
     {
@@ -118,6 +119,11 @@ const router = createRouter({
   name: 'additional-materials',
   component: () => import('@/views/AdditionalMaterialsView.vue')
     },
+{
+  path: '/donates',
+  name: 'Donates',
+  component: () => import('@/views/DonatesView.vue')
+}
   ]
 })
 

@@ -26,9 +26,10 @@
         <span class="nav-link-disabled">Финансовый Гороскоп</span>
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
         <router-link to="/articles" class="nav-link">Статьи</router-link>
-        
-        <!-- Разблокировано -->
         <router-link to="/additional-materials" class="nav-link">Доп. материалы</router-link>
+        
+        <!-- Новая активная кнопка -->
+        <router-link to="/donates" class="nav-link">Донаты</router-link>
         
         <router-link to="/contacts" class="nav-link">Мои контакты</router-link>
       </nav>
@@ -56,9 +57,10 @@
         <span @click="closeMenu" class="nav-link-mobile-disabled">Финансовый Гороскоп</span>
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
         <router-link @click="closeMenu" to="/articles" class="nav-link-mobile">Статьи</router-link>
-        
-        <!-- Разблокировано -->
         <router-link @click="closeMenu" to="/additional-materials" class="nav-link-mobile">Доп. материалы</router-link>
+        
+        <!-- Новая кнопка в мобильном меню -->
+        <router-link @click="closeMenu" to="/donates" class="nav-link-mobile">Донаты</router-link>
         
         <router-link @click="closeMenu" to="/contacts" class="nav-link-mobile">Мои контакты</router-link>
       </nav>
