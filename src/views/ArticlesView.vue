@@ -1,7 +1,6 @@
 <template>
   <div class="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0a0514] via-[#120a24] to-[#1a0f2e] py-20 px-6">
-    
-    <!-- Фоновые декоративные элементы -->
+    <!-- Фоновые элементы (без изменений) -->
     <div class="absolute inset-0 z-0">
       <div class="stars"></div>
       <div class="absolute top-1/4 left-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -9,8 +8,6 @@
     </div>
 
     <div class="relative z-10 max-w-5xl mx-auto">
-      
-      <!-- Заголовок страницы -->
       <h1 class="text-5xl md:text-6xl text-center font-serif tracking-wider text-amber-300 mb-6 drop-shadow-[0_0_15px_rgba(251,191,36,0.4)]">
         Статьи
       </h1>
@@ -18,7 +15,6 @@
 
       <!-- Сетка статей -->
       <div class="grid md:grid-cols-2 gap-8 lg:gap-10">
-        
         <router-link 
           v-for="article in paginatedArticles" 
           :key="article.slug" 
@@ -48,7 +44,6 @@
             </div>
           </div>
         </router-link>
-
       </div>
 
       <!-- Пагинация -->
@@ -85,100 +80,15 @@
           Следующая →
         </button>
       </div>
-
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { articlesData } from '@/data/articles'   // ← Импорт
 
-const articles = ref([
-  {
-    slug: 'travma-detstva',
-    title: 'Травма детства',
-    excerpt: 'У многих людей есть очень большая травма на подсознательном уровне. Это травма детства...',
-    category: 'Самопознание',
-    readTime: '11 мин'
-  },
-  {
-    slug: 'samaya-opasnaya-bolezn-v-mire',
-    title: 'Самая опасная болезнь в мире',
-    excerpt: 'В современном мире самая опасная болезнь — даже не рак и не сердечные заболевания...',
-    category: 'Мудрость',
-    readTime: '8 мин'
-  },
-  {
-    slug: 'odna-iz-glavnyh-problem-sovremennogo-obschestva',
-    title: 'Одна из главных проблем современного общества',
-    excerpt: 'Мы потеряли связь с самым важным. И эта потеря стоит дороже, чем кажется...',
-    category: 'Общество',
-    readTime: '11 мин'
-  },
-  {
-    slug: 'kak-vliyaet-progress-na-zdorove-cheloveka',
-    title: 'Как влияет прогресс на здоровье человека',
-    excerpt: 'Технологии развиваются быстрее, чем мы успеваем адаптироваться...',
-    category: 'Здоровье',
-    readTime: '9 мин'
-  },
-  {
-    slug: 'ot-chego-zavisit-vash-lichnostnyy-rost',
-    title: 'От чего зависит ваш личностный рост',
-    excerpt: 'Истинный рост начинается не с внешних действий, а с внутреннего состояния...',
-    category: 'Развитие',
-    readTime: '10 мин'
-  },
-  {
-    slug: 'byt-horoshim-horosho-ili-ploho',
-    title: 'Быть хорошим человеком',
-    excerpt: 'Вы очень хороший человек. Вы многое делаете в ущерб себе. Боитесь сказать «нет»...',
-    category: 'Самопознание',
-    readTime: '9 мин'
-  },
-  {
-    slug: 'moya-duhovnaya-realizaciya',
-    title: 'Моя духовная реализация',
-    excerpt: 'Личный опыт прохождения пути от интеллектуального понимания до глубокой реализации...',
-    category: 'Путь',
-    readTime: '12 мин'
-  },
-  {
-    slug: 'v-chem-vasha-unikalnost',
-    title: 'В чём ваша уникальность?',
-    excerpt: 'Каждый человек несёт в себе уникальный божественный отпечаток...',
-    category: 'Самопознание',
-    readTime: '8 мин'
-  },
-  {
-    slug: 'kto-ya',
-    title: 'Кто я?',
-    excerpt: 'Человек без имени. Вездесущий воздух, вдыхающий аромат прекрасных цветов...',
-    category: 'Поэзия',
-    readTime: '6 мин'
-  },
-  {
-    slug: 'lyubovnye-otnosheniya',
-    title: 'Когда любовные отношения отпадают',
-    excerpt: 'Наконец-то я пришёл к такому состоянию, что любовные отношения могут отпасть...',
-    category: 'Отношения',
-    readTime: '9 мин'
-  },
-  {
-    slug: 'styd-i-vina',
-    title: 'Стыд и вина',
-    excerpt: 'Вы очень хороший человек. Вы многое делаете в ущерб себе. Боитесь сказать «нет»...',
-    category: 'Самопознание',
-    readTime: '10 мин'
-  },
-  {
-    slug: 'ne-igrayu-s-chuvstvami',
-    title: 'Я не играю на чувствах',
-    excerpt: 'Многие люди думают, что я с ними играю. Что я могу на это сказать?...',
-    category: 'Отношения',
-    readTime: '8 мин'
-  }
-])
+const articles = ref(articlesData)
 
 const ITEMS_PER_PAGE = 4
 const currentPage = ref(1)
@@ -190,20 +100,13 @@ const paginatedArticles = computed(() => {
   return articles.value.slice(start, start + ITEMS_PER_PAGE)
 })
 
-const nextPage = () => {
-  if (currentPage.value < totalPages.value) currentPage.value++
-}
-
-const prevPage = () => {
-  if (currentPage.value > 1) currentPage.value--
-}
-
-const goToPage = (page: number) => {
-  currentPage.value = page
-}
+const nextPage = () => { if (currentPage.value < totalPages.value) currentPage.value++ }
+const prevPage = () => { if (currentPage.value > 1) currentPage.value-- }
+const goToPage = (page: number) => { currentPage.value = page }
 </script>
 
 <style scoped>
+/* Стили без изменений */
 @reference "tailwindcss";
 
 .article-card {
