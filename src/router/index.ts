@@ -12,7 +12,7 @@ const router = createRouter({
     { path: '/ritual-cleaning', component: () => import('@/views/RitualCleaning.vue') },
     { path: '/financial-horoscope', component: () => import('@/views/FinancialHoroscope.vue') },
     { path: '/library', component: () => import('@/views/LibraryView.vue') },
-    { path: '/additional-materials', component: () => import('@/views/AdditionalMaterials.vue') },
+    { path: '/additional-materials', component: () => import('@/views/AdditionalMaterialsView.vue') },
     { path: '/contacts', component: () => import('@/views/ContactsView.vue') },
     { path: '/astrotaro', component: () => import('@/views/AstroTaro.vue') },
     { path: '/report', component: () => import('@/components/SpiritualReport.vue') },
@@ -112,6 +112,11 @@ const router = createRouter({
       path: '/tarot',
       name: 'Tarot',
       component: () => import('@/views/TarotView.vue')
+    },
+    {
+  path: '/additional-materials',
+  name: 'additional-materials',
+  component: () => import('@/views/AdditionalMaterialsView.vue')
     },
   ]
 })

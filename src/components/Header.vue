@@ -6,7 +6,7 @@
       <router-link to="/" class="flex items-center gap-5 md:gap-6 group">
         <img 
           src="@/assets/images/avatar_3.jpg" 
-          alt="Звезда" 
+          alt="Moreh ha_Tzedek" 
           class="w-12 h-12 md:w-14 md:h-14 object-cover rounded-full shadow-md border border-amber-400/40 group-hover:scale-105 transition-transform duration-300"
         >
         <span class="text-xl md:text-3xl font-serif text-amber-400 tracking-wider drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] group-hover:drop-shadow-[0_0_12px_rgba(251,191,36,0.7)] transition-all">
@@ -19,21 +19,16 @@
         <router-link to="/" class="nav-link">Обо мне</router-link>
         <router-link to="/services" class="nav-link">Услуги</router-link>
         <span class="nav-link-disabled">Йога-Васиштха</span>
-        
-        <!-- Разблокировано -->
         <router-link to="/tarot" class="nav-link">Гадание на таро</router-link>
-        
         <span class="nav-link-disabled">Гадание на рунах</span>
-        
         <router-link to="/astrotaro" class="nav-link">Астротаро</router-link>
-        
         <span class="nav-link-disabled">Ритуальные Чистки</span>
         <span class="nav-link-disabled">Финансовый Гороскоп</span>
-        
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
         <router-link to="/articles" class="nav-link">Статьи</router-link>
         
-        <span class="nav-link-disabled">Доп. материалы</span>
+        <!-- Разблокировано -->
+        <router-link to="/additional-materials" class="nav-link">Доп. материалы</router-link>
         
         <router-link to="/contacts" class="nav-link">Мои контакты</router-link>
       </nav>
@@ -54,21 +49,16 @@
       <nav class="flex flex-col space-y-3 text-base">
         <router-link @click="closeMenu" to="/" class="nav-link-mobile">Обо мне</router-link>
         <span @click="closeMenu" class="nav-link-mobile-disabled">Йога-Васиштха</span>
-        
-        <!-- Разблокировано -->
         <router-link @click="closeMenu" to="/tarot" class="nav-link-mobile">Гадание на таро</router-link>
-        
         <span @click="closeMenu" class="nav-link-mobile-disabled">Гадание на рунах</span>
-        
         <router-link @click="closeMenu" to="/astrotaro" class="nav-link-mobile">Астротаро</router-link>
-        
         <span @click="closeMenu" class="nav-link-mobile-disabled">Ритуальные Чистки</span>
         <span @click="closeMenu" class="nav-link-mobile-disabled">Финансовый Гороскоп</span>
-        
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
         <router-link @click="closeMenu" to="/articles" class="nav-link-mobile">Статьи</router-link>
         
-        <span @click="closeMenu" class="nav-link-mobile-disabled">Доп. материалы</span>
+        <!-- Разблокировано -->
+        <router-link @click="closeMenu" to="/additional-materials" class="nav-link-mobile">Доп. материалы</router-link>
         
         <router-link @click="closeMenu" to="/contacts" class="nav-link-mobile">Мои контакты</router-link>
       </nav>
