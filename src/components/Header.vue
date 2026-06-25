@@ -19,7 +19,10 @@
         <router-link to="/" class="nav-link">Обо мне</router-link>
         <router-link to="/services" class="nav-link">Услуги</router-link>
         <span class="nav-link-disabled">Йога-Васиштха</span>
-        <span class="nav-link-disabled">Гадание на таро</span>
+        
+        <!-- Разблокировано -->
+        <router-link to="/tarot" class="nav-link">Гадание на таро</router-link>
+        
         <span class="nav-link-disabled">Гадание на рунах</span>
         
         <router-link to="/astrotaro" class="nav-link">Астротаро</router-link>
@@ -28,8 +31,6 @@
         <span class="nav-link-disabled">Финансовый Гороскоп</span>
         
         <router-link to="/library" class="nav-link">Моя библиотека</router-link>
-        
-        <!-- Новый раздел -->
         <router-link to="/articles" class="nav-link">Статьи</router-link>
         
         <span class="nav-link-disabled">Доп. материалы</span>
@@ -52,9 +53,11 @@
     <div v-show="isMenuOpen" class="lg:hidden bg-black/90 backdrop-blur-md border-t border-amber-400/20 py-4 px-4 shadow-2xl">
       <nav class="flex flex-col space-y-3 text-base">
         <router-link @click="closeMenu" to="/" class="nav-link-mobile">Обо мне</router-link>
-        
         <span @click="closeMenu" class="nav-link-mobile-disabled">Йога-Васиштха</span>
-        <span @click="closeMenu" class="nav-link-mobile-disabled">Гадание на таро</span>
+        
+        <!-- Разблокировано -->
+        <router-link @click="closeMenu" to="/tarot" class="nav-link-mobile">Гадание на таро</router-link>
+        
         <span @click="closeMenu" class="nav-link-mobile-disabled">Гадание на рунах</span>
         
         <router-link @click="closeMenu" to="/astrotaro" class="nav-link-mobile">Астротаро</router-link>
@@ -63,8 +66,6 @@
         <span @click="closeMenu" class="nav-link-mobile-disabled">Финансовый Гороскоп</span>
         
         <router-link @click="closeMenu" to="/library" class="nav-link-mobile">Моя библиотека</router-link>
-        
-        <!-- Новый раздел -->
         <router-link @click="closeMenu" to="/articles" class="nav-link-mobile">Статьи</router-link>
         
         <span @click="closeMenu" class="nav-link-mobile-disabled">Доп. материалы</span>
@@ -110,12 +111,7 @@ function closeMenu() {
   @apply block py-2 px-3 text-gray-500 cursor-not-allowed select-none;
 }
 
-/* Активная ссылка */
 .router-link-active {
   @apply text-amber-400 after:w-full;
-}
-
-.nav-link-mobile.router-link-active {
-  @apply bg-amber-400/10 text-amber-400;
 }
 </style>

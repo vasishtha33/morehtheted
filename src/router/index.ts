@@ -7,7 +7,7 @@ const router = createRouter({
     { path: '/', name: 'home', component: () => import('@/components/About.vue') },
 
     { path: '/yoga-vasishtha', component: () => import('@/views/YogaVasishtha.vue') },
-    { path: '/tarot', component: () => import('@/views/Tarot.vue') },
+    { path: '/tarot', component: () => import('@/views/TarotView.vue') },
     { path: '/runes', component: () => import('@/views/Runes.vue') },
     { path: '/ritual-cleaning', component: () => import('@/views/RitualCleaning.vue') },
     { path: '/financial-horoscope', component: () => import('@/views/FinancialHoroscope.vue') },
@@ -107,7 +107,12 @@ const router = createRouter({
       path: '/articles/horoshee-nastroenie-s-utra',
       name: 'HorosheeNastroenieSUtra',
       component: () => import('@/views/articles/HorosheeNastroeniesUtra.vue')
-    }
+    },
+    {
+      path: '/tarot',
+      name: 'Tarot',
+      component: () => import('@/views/TarotView.vue')
+    },
   ]
 })
 
